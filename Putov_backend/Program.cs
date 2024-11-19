@@ -1,9 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Putov_backend.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// Добавляем контекст базы данных
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseInMemoryDatabase("TestDatabase"));
+
+// Добавляем поддержку контроллеров
+builder.Services.AddControllers();
 
 var app = builder.Build();
+
+// Настройка маршрутов для API-контроллеров
+app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -20,8 +30,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
