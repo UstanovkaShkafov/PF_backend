@@ -4,8 +4,8 @@ using Putov_backend.Models;
 //контроллер для обработки CRUD операций с объектами модели Training
 
 [ApiController]
-[Route("api/[controller]")]
-    public class TrainingController : ControllerBase //Теперь TrCon работает как API контроллер
+[Route("api/[controller]")] //https://localhost:7242/api/Training
+public class TrainingController : ControllerBase //Теперь TrCon работает как API контроллер
     {
         private readonly AppDbContext _context;
 
@@ -51,9 +51,9 @@ using Putov_backend.Models;
     }
 
     [HttpGet("{id}")]
-    public ActionResult<object> GetTraining(int id)
+    public ActionResult<object> GetTraining(int id) //В данном случае возвращаемое значение будет объектом любого типа
     {
-        var training = _context.Trainings.FirstOrDefault(t => t.Id == id);
+        var training = _context.Trainings.FirstOrDefault(t => t.Id == id); //LINQ
         if (training == null)
         {
             return NotFound();
