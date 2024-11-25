@@ -17,8 +17,6 @@
                 throw new InvalidOperationException("Дата окончания не может быть раньше даты начала.");
             return EndDate.Value - StartDate.Value;
         }
-
-        public ICollection<Participant> Participants { get; set; } // Участники тренировки
     }
 
 }

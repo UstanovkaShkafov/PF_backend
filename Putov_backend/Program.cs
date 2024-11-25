@@ -1,20 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-
-
+using Putov_backend.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-/*//база данных будет храниться только в памяти. Обычно используется для тестирования.
+// Добавляем контекст базы данных
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("TestDatabase"));*/
+    options.UseInMemoryDatabase("TestDatabase"));
 
 // Добавляем поддержку контроллеров
 builder.Services.AddControllers();
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
 
 var app = builder.Build();
 
