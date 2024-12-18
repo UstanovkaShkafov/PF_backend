@@ -1,11 +1,14 @@
-﻿namespace Putov_backend.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Putov_backend.Models
 {
     public class Training
     {
         public int Id { get; set; } // Уникальный идентификатор
-        public string Name { get; set; } 
-        public DateTime Data { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public DateTime Data { get; set; } = DateTime.Now;
+        public string? Description { get; set; }
+        public int MaxParticipants { get; set; }  // максимальное количество участников
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
@@ -18,7 +21,14 @@
             return EndDate.Value - StartDate.Value;
         }
 
-        public ICollection<Participant> Participants { get; set; } // Участники тренировки
+        [JsonIgnore]
+        public ICollection<Participant> Participants { get; set; } = new List<Participant>(); // или просто сделайте nullable
+                                                                                              // Участники тренировки
+
+        public bool CanAddParticipant()
+        {
+            return Participants.Count < MaxParticipants;
+        }
     }
 
 }
